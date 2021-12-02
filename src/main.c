@@ -12,15 +12,179 @@
 #include "..\assets-test\mapteste2.c"
 #include "..\assets-test\mapteste3.c"
 
-const unsigned char smile[] =
-{
-  0x3C,0x3C,0x42,0x42,0x81,0x81,0xA5,0xA5,
-  0x81,0x81,0x81,0xA5,0x42,0x5A,0x3C,0x3C
-};
+UINT16 positionBall[] = {48,24};
+UINT16 positionBallTwo[] = {64,112};
+UINT16 positionBarraRightX[] = {152,152,152};
+UINT16 positionBarraRightY[] = {136,128,120};
+UINT16 transitionBarraRight = 0;
+UINT16 directionBallOne = 0;
+UINT16 directionBallTwo = 4;
 
-UINT8 positionBarraRightX[] = {152,152,152};
-UINT8 positionBarraRightY[] = {136,128,120};
-UINT8 transitionBarraRight = 0;
+void moveBolaUm(){
+    UINT16 indexTLx=0, indexTLy=0, tileindexTL=0;
+    UBYTE result=0;
+
+    if(directionBallOne == 0){
+        indexTLx = (positionBall[0] - 8) / 8;
+        indexTLy = ((positionBall[1]-8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 1){
+        indexTLx = ((positionBall[0]-8) - 8) / 8;
+        indexTLy = ((positionBall[1]-8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 2){
+        indexTLx = ((positionBall[0]-8) - 8) / 8;
+        indexTLy = (positionBall[1] - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 3){
+        indexTLx = ((positionBall[0]-8) - 8) / 8;
+        indexTLy = ((positionBall[1]+8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 4){
+        indexTLx = (positionBall[0] - 8) / 8;
+        indexTLy = ((positionBall[1]+8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 5){
+        indexTLx = ((positionBall[0]+8) - 8) / 8;
+        indexTLy = ((positionBall[1]+8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 6){
+        indexTLx = ((positionBall[0]+8) - 8) / 8;
+        indexTLy = (positionBall[1] - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallOne == 7){
+        indexTLx = ((positionBall[0]+8) - 8) / 8;
+        indexTLy = ((positionBall[1]-8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    }
+
+    result = BackgroundPong[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
+
+    if(directionBallOne == 0 && !result){
+        directionBallOne = 5;
+    } else if(directionBallOne == 1 && !result){
+        directionBallOne = 6;
+    } else if(directionBallOne == 2 && !result){
+        directionBallOne = 7;
+    } else if(directionBallOne == 3 && !result){
+        directionBallOne = 0;
+    } else if(directionBallOne == 4 && !result){
+        directionBallOne = 1;
+    } else if(directionBallOne == 5 && !result){
+        directionBallOne = 2;
+    } else if(directionBallOne == 6 && !result){
+        directionBallOne = 3;
+    } else if(directionBallOne == 7 && !result){
+        directionBallOne = 4;
+    }
+
+    if(directionBallOne == 0){
+        positionBall[1] -= 8;
+    } else if(directionBallOne == 1){
+        positionBall[0] -= 8;
+        positionBall[1] -= 8;
+    } else if(directionBallOne == 2){
+        positionBall[0] -= 8;
+    } else if(directionBallOne == 3){
+        positionBall[0] -= 8;
+        positionBall[1] += 8;
+    } else if(directionBallOne == 4){
+        positionBall[1] += 8;
+    } else if(directionBallOne == 5){
+        positionBall[0] += 8;
+        positionBall[1] += 8;
+    } else if(directionBallOne == 6){
+        positionBall[0] += 8;
+    } else if(directionBallOne == 7){
+        positionBall[0] += 8;
+        positionBall[1] -= 8;
+    }
+
+    move_sprite(0, positionBall[0], positionBall[1]);
+}
+
+void moveBolaDois(){
+    UINT16 indexTLx=0, indexTLy=0, tileindexTL=0;
+    UBYTE result=0;
+    
+    if(directionBallTwo == 0){
+        indexTLx = (positionBallTwo[0] - 8) / 8;
+        indexTLy = ((positionBallTwo[1]-8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 1){
+        indexTLx = ((positionBallTwo[0]-8) - 8) / 8;
+        indexTLy = ((positionBallTwo[1]-8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 2){
+        indexTLx = ((positionBallTwo[0]-8) - 8) / 8;
+        indexTLy = (positionBallTwo[1] - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 3){
+        indexTLx = ((positionBallTwo[0]-8) - 8) / 8;
+        indexTLy = ((positionBallTwo[1]+8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 4){
+        indexTLx = (positionBallTwo[0] - 8) / 8;
+        indexTLy = ((positionBallTwo[1]+8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 5){
+        indexTLx = ((positionBallTwo[0]+8) - 8) / 8;
+        indexTLy = ((positionBallTwo[1]+8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 6){
+        indexTLx = ((positionBallTwo[0]+8) - 8) / 8;
+        indexTLy = (positionBallTwo[1] - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    } else if(directionBallTwo == 7){
+        indexTLx = ((positionBallTwo[0]+8) - 8) / 8;
+        indexTLy = ((positionBallTwo[1]-8) - 16) / 8;
+        tileindexTL = 20 * indexTLy + indexTLx;
+    }
+
+    result = BackgroundPong[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
+
+    if(directionBallTwo == 0 && !result){
+        directionBallTwo = 5;
+    } else if(directionBallTwo == 1 && !result){
+        directionBallTwo = 6;
+    } else if(directionBallTwo == 2 && !result){
+        directionBallTwo = 7;
+    } else if(directionBallTwo == 3 && !result){
+        directionBallTwo = 0;
+    } else if(directionBallTwo == 4 && !result){
+        directionBallTwo = 1;
+    } else if(directionBallTwo == 5 && !result){
+        directionBallTwo = 2;
+    } else if(directionBallTwo == 6 && !result){
+        directionBallTwo = 3;
+    } else if(directionBallTwo == 7 && !result){
+        directionBallTwo = 4;
+    }
+
+    if(directionBallTwo == 0){
+        positionBallTwo[1] -= 8;
+    } else if(directionBallTwo == 1){
+        positionBallTwo[0] -= 8;
+        positionBallTwo[1] -= 8;
+    } else if(directionBallTwo == 2){
+        positionBallTwo[0] -= 8;
+    } else if(directionBallTwo == 3){
+        positionBallTwo[0] -= 8;
+        positionBallTwo[1] += 8;
+    } else if(directionBallTwo == 4){
+        positionBallTwo[1] += 8;
+    } else if(directionBallTwo == 5){
+        positionBallTwo[0] += 8;
+        positionBallTwo[1] += 8;
+    } else if(directionBallTwo == 6){
+        positionBallTwo[0] += 8;
+    } else if(directionBallTwo == 7){
+        positionBallTwo[0] += 8;
+        positionBallTwo[1] -= 8;
+    }
+
+    move_sprite(7, positionBallTwo[0], positionBallTwo[1]);
+}
 
 UBYTE canplayermove(UINT8 newplayerx, UINT8 newplayery){
     UINT16 indexTLx, indexTLy, tileindexTL;
@@ -56,9 +220,6 @@ void moveBarraRight(){
     }
 }
 
-void moveBolaUm(){}
-
-void moveBolaDois(){}
 
 void main(){
 
@@ -96,8 +257,6 @@ void main(){
     set_bkg_data(0, 7, LinhaDaQuadra);
     set_bkg_tiles(0, 0, 20, 18, BackgroundPong);
 
-    UINT8 positionBall[] = {48,24};
-    UINT8 positionBallTwo[] = {64,112};
     UINT8 positionBarraLeftX[] = {16,16,16};
     UINT8 positionBarraLeftY[] = {32,40,48};
 
