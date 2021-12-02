@@ -20,62 +20,155 @@ UINT16 transitionBarraRight = 0;
 UINT16 directionBallOne = 0;
 UINT16 directionBallTwo = 4;
 
-void moveBolaUm(){
-    UINT16 indexTLx=0, indexTLy=0, tileindexTL=0;
-    UBYTE result=0;
+UINT16 sortearUmValor(){
+    UINT16 srand = positionBall[0] + positionBall[1] + positionBallTwo[0] + positionBallTwo[1] + positionBarraRightX[0] + positionBarraRightX[1] + positionBarraRightX[2] + positionBarraRightY[0] + positionBarraRightY[1] + positionBarraRightY[2] + transitionBarraRight + directionBallOne + directionBallTwo;
+    return srand % 3;
+}
 
-    if(directionBallOne == 0){
-        indexTLx = (positionBall[0] - 8) / 8;
-        indexTLy = ((positionBall[1]-8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 1){
-        indexTLx = ((positionBall[0]-8) - 8) / 8;
-        indexTLy = ((positionBall[1]-8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 2){
-        indexTLx = ((positionBall[0]-8) - 8) / 8;
-        indexTLy = (positionBall[1] - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 3){
-        indexTLx = ((positionBall[0]-8) - 8) / 8;
-        indexTLy = ((positionBall[1]+8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 4){
-        indexTLx = (positionBall[0] - 8) / 8;
-        indexTLy = ((positionBall[1]+8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 5){
-        indexTLx = ((positionBall[0]+8) - 8) / 8;
-        indexTLy = ((positionBall[1]+8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 6){
-        indexTLx = ((positionBall[0]+8) - 8) / 8;
-        indexTLy = (positionBall[1] - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallOne == 7){
-        indexTLx = ((positionBall[0]+8) - 8) / 8;
-        indexTLy = ((positionBall[1]-8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    }
+UINT16 canplayermove(UINT16 newplayerx, UINT16 newplayery){
+    UINT16 indexTLx, indexTLy, tileindexTL;
+    UBYTE result;
+
+    indexTLx = (newplayerx - 8) / 8;
+    indexTLy = (newplayery - 16) / 8;
+    tileindexTL = 20 * indexTLy + indexTLx;
 
     result = BackgroundPong[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
 
-    if(directionBallOne == 0 && !result){
-        directionBallOne = 5;
-    } else if(directionBallOne == 1 && !result){
-        directionBallOne = 6;
-    } else if(directionBallOne == 2 && !result){
-        directionBallOne = 7;
-    } else if(directionBallOne == 3 && !result){
-        directionBallOne = 0;
-    } else if(directionBallOne == 4 && !result){
-        directionBallOne = 1;
-    } else if(directionBallOne == 5 && !result){
-        directionBallOne = 2;
-    } else if(directionBallOne == 6 && !result){
+    return result;
+}
+
+void moveBolaUm(){
+    UINT16 resultSorteio=sortearUmValor();
+
+    if(directionBallOne == 0 && !canplayermove(positionBall[0], (positionBall[1]-8))){
         directionBallOne = 3;
-    } else if(directionBallOne == 7 && !result){
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBall[0]-8), (positionBall[1]+8))){
+                directionBallOne = 3;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove(positionBall[0], (positionBall[1]+8))){
+                directionBallOne = 4;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), (positionBall[1]+8))){
+                directionBallOne = 5;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 1 && !canplayermove((positionBall[0]-8), (positionBall[1]-8))){
         directionBallOne = 4;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBall[0]-8), positionBall[1])){
+                directionBallOne = 2;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBall[0]-8), (positionBall[1]+8))){
+                directionBallOne = 3;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove(positionBall[0], (positionBall[1]+8))){
+                directionBallOne = 4;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 2 && !canplayermove((positionBall[0]-8), positionBall[1])){
+        directionBallOne = 5;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBall[0]+8), (positionBall[1]+8))){
+                directionBallOne = 5;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBall[0]+8), positionBall[1])){
+                directionBallOne = 6;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), (positionBall[1]-8))){
+                directionBallOne = 7;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 3 && !canplayermove((positionBall[0]-8), (positionBall[1]+8))){
+        directionBallOne = 6;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBall[0]-8), positionBall[1])){
+                directionBallOne = 2;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBall[0]-8), (positionBall[1]-8))){
+                directionBallOne = 1;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove(positionBall[0], (positionBall[1]-8))){
+                directionBallOne = 0;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 4 && !canplayermove(positionBall[0], (positionBall[1]+8))){
+        directionBallOne = 7;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBall[0]+8), (positionBall[1]-8))){
+                directionBallOne = 7;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove(positionBall[0], (positionBall[1]-8))){
+                directionBallOne = 0;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBall[0]-8), (positionBall[1]-8))){
+                directionBallOne = 1;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 5 && !canplayermove((positionBall[0]+8), (positionBall[1]+8))){
+        directionBallOne = 0;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove(positionBall[0], (positionBall[1]-8))){
+                directionBallOne = 0;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBall[0]+8), (positionBall[1]-8))){
+                directionBallOne = 7;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), positionBall[1])){
+                directionBallOne = 6;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 6 && !canplayermove((positionBall[0]+8), positionBall[1])){
+        directionBallOne = 1;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBall[0]-8), (positionBall[1]-8))){
+                directionBallOne = 1;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBall[0]-8), positionBall[1])){
+                directionBallOne = 2;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBall[0]-8), (positionBall[1]+8))){
+                directionBallOne = 3;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallOne == 7 && !canplayermove((positionBall[0]+8), (positionBall[1]-8))){
+        directionBallOne = 2;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove(positionBall[0], (positionBall[1]+8))){
+                directionBallOne = 4;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBall[0]+8), (positionBall[1]+8))){
+                directionBallOne = 5;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), positionBall[1])){
+                directionBallOne = 6;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
     }
 
     if(directionBallOne == 0){
@@ -104,61 +197,137 @@ void moveBolaUm(){
 }
 
 void moveBolaDois(){
-    UINT16 indexTLx=0, indexTLy=0, tileindexTL=0;
-    UBYTE result=0;
-    
-    if(directionBallTwo == 0){
-        indexTLx = (positionBallTwo[0] - 8) / 8;
-        indexTLy = ((positionBallTwo[1]-8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 1){
-        indexTLx = ((positionBallTwo[0]-8) - 8) / 8;
-        indexTLy = ((positionBallTwo[1]-8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 2){
-        indexTLx = ((positionBallTwo[0]-8) - 8) / 8;
-        indexTLy = (positionBallTwo[1] - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 3){
-        indexTLx = ((positionBallTwo[0]-8) - 8) / 8;
-        indexTLy = ((positionBallTwo[1]+8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 4){
-        indexTLx = (positionBallTwo[0] - 8) / 8;
-        indexTLy = ((positionBallTwo[1]+8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 5){
-        indexTLx = ((positionBallTwo[0]+8) - 8) / 8;
-        indexTLy = ((positionBallTwo[1]+8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 6){
-        indexTLx = ((positionBallTwo[0]+8) - 8) / 8;
-        indexTLy = (positionBallTwo[1] - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    } else if(directionBallTwo == 7){
-        indexTLx = ((positionBallTwo[0]+8) - 8) / 8;
-        indexTLy = ((positionBallTwo[1]-8) - 16) / 8;
-        tileindexTL = 20 * indexTLy + indexTLx;
-    }
+    UINT16 resultSorteio=sortearUmValor();
+    UINT16 validaOpcao = 1;
 
-    result = BackgroundPong[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
-
-    if(directionBallTwo == 0 && !result){
-        directionBallTwo = 5;
-    } else if(directionBallTwo == 1 && !result){
-        directionBallTwo = 6;
-    } else if(directionBallTwo == 2 && !result){
-        directionBallTwo = 7;
-    } else if(directionBallTwo == 3 && !result){
-        directionBallTwo = 0;
-    } else if(directionBallTwo == 4 && !result){
-        directionBallTwo = 1;
-    } else if(directionBallTwo == 5 && !result){
-        directionBallTwo = 2;
-    } else if(directionBallTwo == 6 && !result){
+    if(directionBallTwo == 0 && !canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
         directionBallTwo = 3;
-    } else if(directionBallTwo == 7 && !result){
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
+                directionBallTwo = 3;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
+                directionBallTwo = 4;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
+                directionBallTwo = 5;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 1 && !canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
         directionBallTwo = 4;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+                directionBallTwo = 2;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
+                directionBallTwo = 3;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
+                directionBallTwo = 4;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 2 && !canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+        directionBallTwo = 5;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
+                directionBallTwo = 5;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
+                directionBallTwo = 6;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
+                directionBallTwo = 7;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 3 && !canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
+        directionBallTwo = 6;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+                directionBallTwo = 2;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
+                directionBallTwo = 1;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
+                directionBallTwo = 0;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 4 && !canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
+        directionBallTwo = 7;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
+                directionBallTwo = 7;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
+                directionBallTwo = 0;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
+                directionBallTwo = 1;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 5 && !canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
+        directionBallTwo = 0;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
+                directionBallTwo = 0;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
+                directionBallTwo = 7;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
+                directionBallTwo = 6;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 6 && !canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
+        directionBallTwo = 1;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
+                directionBallTwo = 1;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+                directionBallTwo = 2;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
+                directionBallTwo = 3;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
+    } else if(directionBallTwo == 7 && !canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
+        directionBallTwo = 2;
+        /*while(validaOpcao){
+            resultSorteio=sortearUmValor();
+            if(resultSorteio==0 && canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
+                directionBallTwo = 4;
+                validaOpcao = 0;
+            } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
+                directionBallTwo = 5;
+                validaOpcao = 0;
+            }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
+                directionBallTwo = 6;
+                validaOpcao = 0;
+            }
+        }
+        validaOpcao = 1;*/
     }
 
     if(directionBallTwo == 0){
@@ -186,19 +355,6 @@ void moveBolaDois(){
     move_sprite(7, positionBallTwo[0], positionBallTwo[1]);
 }
 
-UBYTE canplayermove(UINT8 newplayerx, UINT8 newplayery){
-    UINT16 indexTLx, indexTLy, tileindexTL;
-    UBYTE result;
-
-    indexTLx = (newplayerx - 8) / 8;
-    indexTLy = (newplayery - 16) / 8;
-    tileindexTL = 20 * indexTLy + indexTLx;
-
-    result = BackgroundPong[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
-
-    return result;
-}
-
 void moveBarraRight(){
     if(!(canplayermove(positionBarraRightX[0], positionBarraRightY[0]-8) && canplayermove(positionBarraRightX[1], positionBarraRightY[1]-8) && canplayermove(positionBarraRightX[2], positionBarraRightY[2]-8))){
         transitionBarraRight=1;
@@ -207,13 +363,13 @@ void moveBarraRight(){
         transitionBarraRight=0;
     }
     if(transitionBarraRight==0){
-        for(UINT8 x=0; x<3; x++){
+        for(UINT16 x=0; x<3; x++){
             positionBarraRightY[x]-=8;
             move_sprite(x+4,positionBarraRightX[x],positionBarraRightY[x]);
         }
     }
     if(transitionBarraRight==1){
-        for(UINT8 x=0; x<3; x++){
+        for(UINT16 x=0; x<3; x++){
             positionBarraRightY[x]+=8;
             move_sprite(x+4,positionBarraRightX[x],positionBarraRightY[x]);
         }
@@ -257,8 +413,8 @@ void main(){
     set_bkg_data(0, 7, LinhaDaQuadra);
     set_bkg_tiles(0, 0, 20, 18, BackgroundPong);
 
-    UINT8 positionBarraLeftX[] = {16,16,16};
-    UINT8 positionBarraLeftY[] = {32,40,48};
+    UINT16 positionBarraLeftX[] = {16,16,16};
+    UINT16 positionBarraLeftY[] = {32,40,48};
 
     // Bola Um
 	set_sprite_data(0, 1, Bola);
@@ -301,7 +457,7 @@ void main(){
 		if (joypad() & J_UP)
 		{ 
 			if(canplayermove(positionBarraLeftX[0], positionBarraLeftY[0]-8) && canplayermove(positionBarraLeftX[1], positionBarraLeftY[1]-8) && canplayermove(positionBarraLeftX[2], positionBarraLeftY[2]-8)){
-                for(UINT8 x=0; x<3; x++){
+                for(UINT16 x=0; x<3; x++){
                     positionBarraLeftY[x]-=8;
 			        move_sprite(x+1,positionBarraLeftX[x],positionBarraLeftY[x]);
                 }
@@ -310,7 +466,7 @@ void main(){
 		else if (joypad() & J_DOWN)
 		{ 
 			if(canplayermove(positionBarraLeftX[0], positionBarraLeftY[0]+8) && canplayermove(positionBarraLeftX[1], positionBarraLeftY[1]+8) && canplayermove(positionBarraLeftX[2], positionBarraLeftY[2]+8)){
-                for(UINT8 x=0; x<3; x++){
+                for(UINT16 x=0; x<3; x++){
                     positionBarraLeftY[x]+=8;
 			        move_sprite(x+1,positionBarraLeftX[x],positionBarraLeftY[x]);
                 }
@@ -323,7 +479,7 @@ void main(){
 
         moveBolaDois();
 
-        for(UINT8 i=0; i<6; i++){
+        for(UINT16 i=0; i<6; i++){
 		    wait_vbl_done();
         }
 	}
