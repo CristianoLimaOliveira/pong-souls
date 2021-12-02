@@ -51,8 +51,7 @@ void moveBolaUm(){
             directionBallOne = 4;
         }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), (positionBall[1]+8))){
             directionBallOne = 5;
-        }
-        if(canplayermove((positionBall[0]-8), (positionBall[1]+8))){
+        } else if(canplayermove((positionBall[0]-8), (positionBall[1]+8))){
             directionBallOne = 3;
         } else if(canplayermove(positionBall[0], (positionBall[1]+8))){
             directionBallOne = 4;
@@ -65,15 +64,12 @@ void moveBolaUm(){
             directionBallOne = 2;
         } else if(resultSorteio==1 && canplayermove((positionBall[0]-8), (positionBall[1]+8))){
             directionBallOne = 3;
-        }else if(resultSorteio==2 && canplayermove(positionBall[0], (positionBall[1]+8))){
-            directionBallOne = 4;
-        }
-        if(canplayermove((positionBall[0]-8), positionBall[1])){
+        } else if(canplayermove((positionBall[0]-8), positionBall[1])){
             directionBallOne = 2;
         } else if(canplayermove((positionBall[0]-8), (positionBall[1]+8))){
             directionBallOne = 3;
-        }else if(canplayermove(positionBall[0], (positionBall[1]+8))){
-            directionBallOne = 4;
+        }else if(canplayermove((positionBall[0]+8), positionBall[1])){
+            directionBallOne = 6;
         }
     } else if(directionBallOne == 2 && !canplayermove((positionBall[0]-8), positionBall[1])){
         resultSorteio=sortearUmValor();
@@ -83,8 +79,7 @@ void moveBolaUm(){
             directionBallOne = 6;
         }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), (positionBall[1]-8))){
             directionBallOne = 7;
-        }
-        if(canplayermove((positionBall[0]+8), (positionBall[1]+8))){
+        } else if(canplayermove((positionBall[0]+8), (positionBall[1]+8))){
             directionBallOne = 5;
         } else if(canplayermove((positionBall[0]+8), positionBall[1])){
             directionBallOne = 6;
@@ -97,15 +92,12 @@ void moveBolaUm(){
             directionBallOne = 2;
         } else if(resultSorteio==1 && canplayermove((positionBall[0]-8), (positionBall[1]-8))){
             directionBallOne = 1;
-        }else if(resultSorteio==2 && canplayermove(positionBall[0], (positionBall[1]-8))){
-            directionBallOne = 0;
-        }
-        if(canplayermove((positionBall[0]-8), positionBall[1])){
+        } else if(canplayermove((positionBall[0]-8), positionBall[1])){
             directionBallOne = 2;
         } else if(canplayermove((positionBall[0]-8), (positionBall[1]-8))){
             directionBallOne = 1;
-        }else if(canplayermove(positionBall[0], (positionBall[1]-8))){
-            directionBallOne = 0;
+        }else if(canplayermove((positionBall[0]+8), positionBall[1])){
+            directionBallOne = 6;
         }
     } else if(directionBallOne == 4 && !canplayermove(positionBall[0], (positionBall[1]+8))){
         resultSorteio=sortearUmValor();
@@ -115,8 +107,7 @@ void moveBolaUm(){
             directionBallOne = 0;
         }else if(resultSorteio==2 && canplayermove((positionBall[0]-8), (positionBall[1]-8))){
             directionBallOne = 1;
-        }
-        if(canplayermove((positionBall[0]+8), (positionBall[1]-8))){
+        } else if(canplayermove((positionBall[0]+8), (positionBall[1]-8))){
             directionBallOne = 7;
         } else if(canplayermove(positionBall[0], (positionBall[1]-8))){
             directionBallOne = 0;
@@ -125,19 +116,16 @@ void moveBolaUm(){
         }
     } else if(directionBallOne == 5 && !canplayermove((positionBall[0]+8), (positionBall[1]+8))){
         resultSorteio=sortearUmValor();
-        if(resultSorteio==0 && canplayermove(positionBall[0], (positionBall[1]-8))){
-            directionBallOne = 0;
-        } else if(resultSorteio==1 && canplayermove((positionBall[0]+8), (positionBall[1]-8))){
+        if(resultSorteio==1 && canplayermove((positionBall[0]+8), (positionBall[1]-8))){
             directionBallOne = 7;
         }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), positionBall[1])){
             directionBallOne = 6;
-        }
-        if(canplayermove(positionBall[0], (positionBall[1]-8))){
-            directionBallOne = 0;
         } else if(canplayermove((positionBall[0]+8), (positionBall[1]-8))){
             directionBallOne = 7;
         }else if(canplayermove((positionBall[0]+8), positionBall[1])){
             directionBallOne = 6;
+        } else if(canplayermove((positionBall[0]-8), positionBall[1])){
+            directionBallOne = 2;
         }
     } else if(directionBallOne == 6 && !canplayermove((positionBall[0]+8), positionBall[1])){
         resultSorteio=sortearUmValor();
@@ -147,8 +135,7 @@ void moveBolaUm(){
             directionBallOne = 2;
         }else if(resultSorteio==2 && canplayermove((positionBall[0]-8), (positionBall[1]+8))){
             directionBallOne = 3;
-        }
-        if(canplayermove((positionBall[0]-8), (positionBall[1]-8))){
+        } else if(canplayermove((positionBall[0]-8), (positionBall[1]-8))){
             directionBallOne = 1;
         } else if(canplayermove((positionBall[0]-8), positionBall[1])){
             directionBallOne = 2;
@@ -157,19 +144,16 @@ void moveBolaUm(){
         }
     } else if(directionBallOne == 7 && !canplayermove((positionBall[0]+8), (positionBall[1]-8))){
         resultSorteio=sortearUmValor();
-        if(resultSorteio==0 && canplayermove(positionBall[0], (positionBall[1]+8))){
-            directionBallOne = 4;
-        } else if(resultSorteio==1 && canplayermove((positionBall[0]+8), (positionBall[1]+8))){
+        if(resultSorteio==1 && canplayermove((positionBall[0]+8), (positionBall[1]+8))){
             directionBallOne = 5;
         }else if(resultSorteio==2 && canplayermove((positionBall[0]+8), positionBall[1])){
             directionBallOne = 6;
-        }
-        if(canplayermove(positionBall[0], (positionBall[1]+8))){
-            directionBallOne = 4;
         } else if(canplayermove((positionBall[0]+8), (positionBall[1]+8))){
             directionBallOne = 5;
         }else if(canplayermove((positionBall[0]+8), positionBall[1])){
             directionBallOne = 6;
+        }else if(canplayermove((positionBall[0]-8), positionBall[1])){
+            directionBallOne = 2;
         }
     }
 
@@ -209,8 +193,7 @@ void moveBolaDois(){
             directionBallTwo = 4;
         }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
             directionBallTwo = 5;
-        }
-        if(canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
+        } else if(canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
             directionBallTwo = 3;
         } else if(canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
             directionBallTwo = 4;
@@ -223,15 +206,12 @@ void moveBolaDois(){
             directionBallTwo = 2;
         } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
             directionBallTwo = 3;
-        }else if(resultSorteio==2 && canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
-            directionBallTwo = 4;
-        }
-        if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+        } else if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
             directionBallTwo = 2;
         } else if(canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
             directionBallTwo = 3;
-        }else if(canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
-            directionBallTwo = 4;
+        }else if(canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
+            directionBallTwo = 6;
         }
     } else if(directionBallTwo == 2 && !canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
         resultSorteio=sortearUmValor();
@@ -241,8 +221,7 @@ void moveBolaDois(){
             directionBallTwo = 6;
         }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
             directionBallTwo = 7;
-        }
-        if(canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
+        } else if(canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
             directionBallTwo = 5;
         } else if(canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
             directionBallTwo = 6;
@@ -255,15 +234,12 @@ void moveBolaDois(){
             directionBallTwo = 2;
         } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
             directionBallTwo = 1;
-        }else if(resultSorteio==2 && canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
-            directionBallTwo = 0;
-        }
-        if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+        } else if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
             directionBallTwo = 2;
         } else if(canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
             directionBallTwo = 1;
-        }else if(canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
-            directionBallTwo = 0;
+        }else if(canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
+            directionBallTwo = 6;
         }
     } else if(directionBallTwo == 4 && !canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
         resultSorteio=sortearUmValor();
@@ -273,8 +249,7 @@ void moveBolaDois(){
             directionBallTwo = 0;
         }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
             directionBallTwo = 1;
-        }
-        if(canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
+        } else if(canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
             directionBallTwo = 7;
         } else if(canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
             directionBallTwo = 0;
@@ -283,19 +258,16 @@ void moveBolaDois(){
         }
     } else if(directionBallTwo == 5 && !canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
         resultSorteio=sortearUmValor();
-        if(resultSorteio==0 && canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
-            directionBallTwo = 0;
-        } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
+        if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
             directionBallTwo = 7;
         }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
             directionBallTwo = 6;
-        }
-        if(canplayermove(positionBallTwo[0], (positionBallTwo[1]-8))){
-            directionBallTwo = 0;
         } else if(canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
             directionBallTwo = 7;
         }else if(canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
             directionBallTwo = 6;
+        } else if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+            directionBallTwo = 2;
         }
     } else if(directionBallTwo == 6 && !canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
         resultSorteio=sortearUmValor();
@@ -305,8 +277,7 @@ void moveBolaDois(){
             directionBallTwo = 2;
         }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]+8))){
             directionBallTwo = 3;
-        }
-        if(canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
+        } else if(canplayermove((positionBallTwo[0]-8), (positionBallTwo[1]-8))){
             directionBallTwo = 1;
         } else if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
             directionBallTwo = 2;
@@ -315,19 +286,16 @@ void moveBolaDois(){
         }
     } else if(directionBallTwo == 7 && !canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]-8))){
         resultSorteio=sortearUmValor();
-        if(resultSorteio==0 && canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
-            directionBallTwo = 4;
-        } else if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
+        if(resultSorteio==1 && canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
             directionBallTwo = 5;
         }else if(resultSorteio==2 && canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
             directionBallTwo = 6;
-        }
-        if(canplayermove(positionBallTwo[0], (positionBallTwo[1]+8))){
-            directionBallTwo = 4;
         } else if(canplayermove((positionBallTwo[0]+8), (positionBallTwo[1]+8))){
             directionBallTwo = 5;
         }else if(canplayermove((positionBallTwo[0]+8), positionBallTwo[1])){
             directionBallTwo = 6;
+        }else if(canplayermove((positionBallTwo[0]-8), positionBallTwo[1])){
+            directionBallTwo = 2;
         }
     }
 
