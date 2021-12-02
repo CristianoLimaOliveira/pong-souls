@@ -1,11 +1,11 @@
 #include <gb/gb.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "..\assets\barra.c"
+#include "..\assets\barraLongaPreta.c"
 #include "..\assets\bola.c"
 #include "..\assets\parede.c"
-#include "..\assets\backgroundLabirinto.c"
-#include "..\assets\backgroundLabTiles.c"
+#include "..\assets\backgroundPong.c"
+#include "..\assets\linhaDaQuadra.c"
 #include "..\assets-test\testeback.c"
 #include "..\assets-test\testeback2.c"
 #include "..\assets-test\mapteste.c"
@@ -18,7 +18,6 @@ const unsigned char smile[] =
   0x81,0x81,0x81,0xA5,0x42,0x5A,0x3C,0x3C
 };
 
-const char blankmap[1] = {0x00};
 UINT8 positionBarraRightX[] = {152,152,152};
 UINT8 positionBarraRightY[] = {136,128,120};
 UINT8 transitionBarraRight = 0;
@@ -31,7 +30,7 @@ UBYTE canplayermove(UINT8 newplayerx, UINT8 newplayery){
     indexTLy = (newplayery - 16) / 8;
     tileindexTL = 20 * indexTLy + indexTLx;
 
-    result = backgroundLabirinto[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
+    result = BackgroundPong[tileindexTL] == 0x00; //0x00 indica os locais do background sem tiles.
 
     return result;
 }
@@ -94,8 +93,8 @@ void main(){
 
     while(joypad()!=J_START){}
 
-    set_bkg_data(0, 4, backgroundLabTiles);
-    set_bkg_tiles(0, 0, 20, 18, backgroundLabirinto);
+    set_bkg_data(0, 7, LinhaDaQuadra);
+    set_bkg_tiles(0, 0, 20, 18, BackgroundPong);
 
     UINT8 positionBall[] = {48,24};
     UINT8 positionBallTwo[] = {64,112};

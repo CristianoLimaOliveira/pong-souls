@@ -1,8 +1,8 @@
 /*
 
- BARRA.C
+ LINHADAQUADRA.H
 
- Tile Source File.
+ Include File.
 
  Info:
   Form                 : All tiles as one unit.
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 0
+  Tiles                : 0 to 6
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -22,11 +22,10 @@
 
 */
 
-/* Start of tile array. */
-unsigned char Barra[] =
-{
-  0x18,0x1C,0x18,0x1C,0x18,0x1C,0x18,0x1C,
-  0x18,0x1C,0x18,0x1C,0x18,0x1C,0x18,0x1C
-};
 
-/* End of BARRA.C */
+/* Bank of tiles. */
+#define LinhaDaQuadraBank 0
+/* Start of tile array. */
+extern unsigned char LinhaDaQuadra[];
+
+/* End of LINHADAQUADRA.H */

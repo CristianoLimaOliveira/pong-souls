@@ -1,6 +1,6 @@
 /*
 
- BACKGROUNDLABTILES.H
+ BARRALONGAPRETA.H
 
  Include File.
 
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 3
+  Tiles                : 0 to 0
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -24,8 +24,8 @@
 
 
 /* Bank of tiles. */
-#define backgroundLabTilesBank 0
+#define BarraBank 0
 /* Start of tile array. */
-extern unsigned char backgroundLabTiles[];
+extern unsigned char Barra[];
 
-/* End of BACKGROUNDLABTILES.H */
+/* End of BARRALONGAPRETA.H */

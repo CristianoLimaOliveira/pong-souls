@@ -1,8 +1,8 @@
 /*
 
- BARRA.H
+ BARRALONGAPRETA.C
 
- Include File.
+ Tile Source File.
 
  Info:
   Form                 : All tiles as one unit.
@@ -22,10 +22,11 @@
 
 */
 
-
-/* Bank of tiles. */
-#define BarraBank 0
 /* Start of tile array. */
-extern unsigned char Barra[];
+unsigned char Barra[] =
+{
+  0xE7,0xFF,0xE7,0xFF,0xE7,0xFF,0xE7,0xFF,
+  0xE7,0xFF,0xE7,0xFF,0xE7,0xFF,0xE7,0xFF
+};
 
-/* End of BARRA.H */
+/* End of BARRALONGAPRETA.C */
