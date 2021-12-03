@@ -217,7 +217,6 @@ void moveBarraRight(BarraGame* selectedBarra){
     }
 }
 
-
 void main(){
 
     SPRITES_8x8;
@@ -236,12 +235,12 @@ void main(){
     ballOne.spritid = 0;
     ballOne.x = 48; ballOne.y = 24;
     ballOne.width = 8; ballOne.height = 8;
-    ballOne.direction = 1;
+    ballOne.direction = 2;
 
     ballTwo.spritid = 7;
-    ballTwo.x = 64; ballTwo.y = 112;
+    ballTwo.x = 120; ballTwo.y = 64;
     ballTwo.width = 8; ballTwo.height = 8;
-    ballTwo.direction = 4;
+    ballTwo.direction = 6;
     /* set_sprite_data: (Tile de início, a quantidade de tiles do arquivo que vai carregar, data)
      * Tile de início é a posição do VRAM do gamebou onde ele vai começar, todos os outros tiles vao ser colocados a partir dele.
      * set_sprite_tile: (Um valor que você quer atribuir ao sprite, tile que voce definiu no set_sprite_data)
@@ -258,7 +257,7 @@ void main(){
 
     while(joypad()!=J_START){}
 
-    set_bkg_data(0, 7, LinhaDaQuadra);
+    set_bkg_data(0, 8, LinhaDaQuadra);
     set_bkg_tiles(0, 0, 20, 18, BackgroundPong);
 
     // Bola Um
