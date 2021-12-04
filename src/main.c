@@ -22,6 +22,7 @@ typedef struct Ball {
 	UINT16 width;
 	UINT16 height;
     UINT16 direction;
+    UINT16 latestPlayer; // serve para indica qual player vai receber pontuação dos blocos quebrados por ter sido o último player a bater na bola.
 } Ball;
 
 typedef struct Barra {
