@@ -38,6 +38,9 @@ typedef struct Barra {
 
 UBYTE vetorBarrasRemovidas[360];
 
+//Barra global para a colisão das barras
+BarraGame barraEsq, barraDir;
+
 /*
 * Se a direção for 0 é para cima, se for 1 é para baixo.
 */
@@ -50,6 +53,18 @@ UBYTE canPlayerMove(UINT16 topy, UINT16 bottomy){
 
 
 UBYTE checkBallCollisions(INT16 x, INT16 y){
+    //Colisão com as barras
+    if(x <= barraEsq.x[0]){
+        if(y >= barraEsq.y[0] && y <= barraEsq.y[0]+barraEsq.height){
+            return TRUE;
+        }
+
+        if(y+8 >= barraEsq.y[0] && y+8 <= barraEsq.y[0]+barraEsq.height){
+            return TRUE;
+        }
+
+    }
+    //Colisão com os blocos e com as paredes!
     INT16 indexTLx, indexTLy, tileindexTL;
     INT16 teste_tile[1];
 
@@ -116,18 +131,17 @@ void moveBola(Ball* selectedBall){
 void main(){
 
     SPRITES_8x8;
-    BarraGame barraEsq, barraDir;
     Ball ballOne, ballTwo;
 
     barraDir.spritid[0] = 4; barraDir.spritid[1] = 5; barraDir.spritid[2] = 6;
     barraDir.x[0] = 152; barraDir.x[1] = 152; barraDir.x[2] = 152;
     barraDir.y[0] = 136; barraDir.y[1] = 128; barraDir.y[2] = 120;
-    barraDir.width = 8; barraDir.height = 8;
+    barraDir.width = 8; barraDir.height = 24;
 
     barraEsq.spritid[0] = 1; barraEsq.spritid[1] = 2; barraEsq.spritid[2] = 3;
     barraEsq.x[0] = 16; barraEsq.x[1] = 16; barraEsq.x[2] = 16;
     barraEsq.y[0] = 32; barraEsq.y[1] = 40; barraEsq.y[2] = 48;
-    barraEsq.width = 8; barraEsq.height = 8;
+    barraEsq.width = 8; barraEsq.height = 24;
 
     ballOne.spritid = 0;
     ballOne.x = 48; ballOne.y = 24;
