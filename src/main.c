@@ -8,9 +8,14 @@
 #include "..\assets\linhaDaQuadra.c"
 #include "..\assets-test\testeback2.c"
 #include "..\assets-test\mapteste3.c"
-
+#include "..\assets\pontuacaoNumbers.c"
 #define TRUE 1
 #define FALSE 0
+#define WINNER_SCORE 1
+
+//SCORES DOS PLAYERS
+UINT16 SCORE_PLAYER_ONE = 0;
+UINT16 SCORE_PLAYER_TWO = 0;
 
 // Bola um começa com o x e o y aumentando.
 // Bola dois começa com o x diminuindo e o y aumentando.
@@ -91,8 +96,20 @@ UBYTE checkBallCollisions(INT16 x, INT16 y){
         unsigned char blank_tile[1] = {0x00};
         set_bkg_tiles(indexTLx, indexTLy, 1, 1, blank_tile);
         vetorBarrasRemovidas[tileindexTL] = TRUE;
-    }
+    }else{
+        if(indexTLx == 0){ // Marca ponto para barra da esquerda
+            SCORE_PLAYER_TWO += 1;
+            set_sprite_tile(9, SCORE_PLAYER_TWO + 8);
+            wait_vbl_done();
+        }
 
+        if(indexTLx == 19){ //Marca ponto para barra da direita
+            SCORE_PLAYER_ONE += 1;
+            set_sprite_tile(8, SCORE_PLAYER_ONE + 8);
+            wait_vbl_done();
+        }
+    }
+    
     return BackgroundPong[tileindexTL] != 0;
 }
 
@@ -191,7 +208,8 @@ void main(){
     set_sprite_data(barraDir.spritid[2], 1, Barra);
     // Bola Dois
 	set_sprite_data(ballTwo.spritid, 1, Bola);
-
+    // Scores
+    set_sprite_data(8, 9, Pontuacao);
     // Meio que serve para associar o desenho do tile que está na VRAM com a referência que vamos usar para manipular o tile no código.
 	set_sprite_tile(0, 0); // primeiro valor é a referência (Nb) definida para o dado através do primeiro campo do sprite_data, e o segundo valor é o indice do desenho do tile na VRAM.
     set_sprite_tile(1, 1);
@@ -201,6 +219,9 @@ void main(){
     set_sprite_tile(5, 5);
     set_sprite_tile(6, 6);
     set_sprite_tile(7, 7);
+    set_sprite_tile(8, 8);
+    set_sprite_tile(9, 8);
+
 
 	move_sprite(ballOne.spritid, ballOne.x, ballOne.y);
 	move_sprite(barraEsq.spritid[0], barraEsq.x[0], barraEsq.y[0]);
@@ -210,7 +231,8 @@ void main(){
     move_sprite(barraDir.spritid[1], barraDir.x[1], barraDir.y[1]);
     move_sprite(barraDir.spritid[2], barraDir.x[2], barraDir.y[2]);
     move_sprite(ballTwo.spritid, ballTwo.x, ballTwo.y);
-
+    move_sprite(8, 32 ,32); // Posição do score do player 1
+    move_sprite(9, 136, 32); // Posição do score do player 2
 
 	SHOW_SPRITES;
     SHOW_BKG;
@@ -257,5 +279,17 @@ void main(){
         for(UINT16 i=0; i<6; i++){
 		    wait_vbl_done();
         }
+
+        if((SCORE_PLAYER_ONE == WINNER_SCORE) || (SCORE_PLAYER_TWO == WINNER_SCORE)){
+            break;
+        }
 	}
+
+    //Esconder os sprites de alguma forma.
+    HIDE_SPRITES;
+    if(SCORE_PLAYER_ONE == WINNER_SCORE){
+        printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR UM\n    voce venceu!");
+    }else{
+        printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR DOIS\n    voce venceu!");
+    }
 }
