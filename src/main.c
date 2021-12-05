@@ -14,10 +14,10 @@
 
 // Bola um começa com o x e o y aumentando.
 // Bola dois começa com o x diminuindo e o y aumentando.
-INT16 BALL_ONE_XVEL = 8;
-INT16 BALL_ONE_YVEL = 8;
-INT16 BALL_TWO_XVEL = -8;
-INT16 BALL_TWO_YVEL = 8;
+INT16 BALL_ONE_XVEL = 4;
+INT16 BALL_ONE_YVEL = 4;
+INT16 BALL_TWO_XVEL = -4;
+INT16 BALL_TWO_YVEL = 4;
 
 typedef struct Ball {
 	UINT16 spritid;
@@ -53,17 +53,26 @@ UBYTE canPlayerMove(UINT16 topy, UINT16 bottomy){
 
 
 UBYTE checkBallCollisions(INT16 x, INT16 y){
-    //Colisão com as barras
+    //Colisão com a barra esquerda
     if(x <= barraEsq.x[0]){
         if(y >= barraEsq.y[0] && y <= barraEsq.y[0]+barraEsq.height){
             return TRUE;
         }
-
         if(y+8 >= barraEsq.y[0] && y+8 <= barraEsq.y[0]+barraEsq.height){
             return TRUE;
         }
-
     }
+
+    //Colisão com a barra direita
+    if(x >= barraDir.x[0]){
+        if(y >= barraDir.y[0] && y <= barraDir.y[0]+barraDir.height){
+            return TRUE;
+        }
+        if(y+8 >= barraDir.y[0] && y+8 <= barraDir.y[0]+barraDir.height){
+            return TRUE;
+        }
+    }
+
     //Colisão com os blocos e com as paredes!
     INT16 indexTLx, indexTLy, tileindexTL;
     INT16 teste_tile[1];
@@ -135,7 +144,7 @@ void main(){
 
     barraDir.spritid[0] = 4; barraDir.spritid[1] = 5; barraDir.spritid[2] = 6;
     barraDir.x[0] = 152; barraDir.x[1] = 152; barraDir.x[2] = 152;
-    barraDir.y[0] = 136; barraDir.y[1] = 128; barraDir.y[2] = 120;
+    barraDir.y[0] = 120; barraDir.y[1] = 128; barraDir.y[2] = 136;
     barraDir.width = 8; barraDir.height = 24;
 
     barraEsq.spritid[0] = 1; barraEsq.spritid[1] = 2; barraEsq.spritid[2] = 3;
@@ -225,7 +234,21 @@ void main(){
 			        move_sprite(x+1,barraEsq.x[x],barraEsq.y[x]);
                 }
             }
-		}
+		}else if(joypad() & J_RIGHT){
+            if(canPlayerMove(barraDir.y[0]-8, barraDir.y[2]-8)){
+                for(UINT8 x=0; x<3; x++){
+                    barraDir.y[x]-=8;
+			        move_sprite(x+4,barraDir.x[x],barraDir.y[x]);
+                }
+            }
+        }else if(joypad() & J_LEFT){
+            if(canPlayerMove(barraDir.y[0]+8, barraDir.y[2]+8)){
+                for(UINT8 x=0; x<3; x++){
+                    barraDir.y[x]+=8;
+			        move_sprite(x+4,barraDir.x[x],barraDir.y[x]);
+                }
+            }
+        }
         
         moveBola(&ballOne);
 
