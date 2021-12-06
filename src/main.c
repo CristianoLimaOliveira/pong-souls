@@ -9,9 +9,10 @@
 #include "..\assets-test\testeback2.c"
 #include "..\assets-test\mapteste3.c"
 #include "..\assets\pontuacaoNumbers.c"
+#include "multiplayer.c"
 #define TRUE 1
 #define FALSE 0
-#define WINNER_SCORE 1
+#define WINNER_SCORE 8
 
 //SCORES DOS PLAYERS
 UINT16 SCORE_PLAYER_ONE = 0;
@@ -99,13 +100,17 @@ UBYTE checkBallCollisions(INT16 x, INT16 y){
     }else{
         if(indexTLx == 0){ // Marca ponto para barra da esquerda
             SCORE_PLAYER_TWO += 1;
-            set_sprite_tile(9, SCORE_PLAYER_TWO + 8);
+            if(SCORE_PLAYER_TWO<WINNER_SCORE){
+                set_sprite_tile(9, SCORE_PLAYER_TWO + 8);
+            }
             wait_vbl_done();
         }
 
         if(indexTLx == 19){ //Marca ponto para barra da direita
             SCORE_PLAYER_ONE += 1;
-            set_sprite_tile(8, SCORE_PLAYER_ONE + 8);
+            if(SCORE_PLAYER_ONE<WINNER_SCORE){
+                set_sprite_tile(8, SCORE_PLAYER_ONE + 8);
+            }
             wait_vbl_done();
         }
     }
@@ -191,7 +196,7 @@ void main(){
     set_bkg_tiles(0, 0, 20, 18, MapTeste3);
     SHOW_BKG;
 
-    while(joypad()!=J_START){}
+    int playerMultiplayerL_Or_R = wait_for_connection();
 
     set_bkg_data(0, 8, LinhaDaQuadra);
     set_bkg_tiles(0, 0, 20, 18, BackgroundPong);
@@ -239,57 +244,145 @@ void main(){
     DISPLAY_ON;
 
 	while(1){
-		if (joypad() & J_UP)
-		{ 
-            if(canPlayerMove(barraEsq.y[0]-8, barraEsq.y[2]-8)){
-                for(UINT8 x=0; x<3; x++){
-                    barraEsq.y[x]-=8;
-			        move_sprite(x+1,barraEsq.x[x],barraEsq.y[x]);
+        if(playerMultiplayerL_Or_R==0){
+            NR52_REG = 0x80;  //habilita o som
+            NR50_REG = 0x77; //volume no maximo
+            WORD pad = joypad();
+            int input[1];
+            recieve_data(input,1);
+            if (pad & J_UP)
+            { 
+                if(canPlayerMove(barraEsq.y[0]-8, barraEsq.y[2]-8)){
+                    for(UINT8 x=0; x<3; x++){
+                        barraEsq.y[x]-=8;
+                        move_sprite(x+1,barraEsq.x[x],barraEsq.y[x]);
+                    }
                 }
             }
-		}
-		else if (joypad() & J_DOWN)
-		{ 
-            if(canPlayerMove(barraEsq.y[0]+8, barraEsq.y[2]+8)){
-                for(UINT8 x=0; x<3; x++){
-                    barraEsq.y[x]+=8;
-			        move_sprite(x+1,barraEsq.x[x],barraEsq.y[x]);
+            if (pad & J_DOWN)
+            { 
+                if(canPlayerMove(barraEsq.y[0]+8, barraEsq.y[2]+8)){
+                    for(UINT8 x=0; x<3; x++){
+                        barraEsq.y[x]+=8;
+                        move_sprite(x+1,barraEsq.x[x],barraEsq.y[x]);
+                    }
                 }
             }
-		}else if(joypad() & J_RIGHT){
-            if(canPlayerMove(barraDir.y[0]-8, barraDir.y[2]-8)){
-                for(UINT8 x=0; x<3; x++){
-                    barraDir.y[x]-=8;
-			        move_sprite(x+4,barraDir.x[x],barraDir.y[x]);
+            if(input[0]==1){
+                if(canPlayerMove(barraDir.y[0]-8, barraDir.y[2]-8)){
+                    for(UINT8 x=0; x<3; x++){
+                        barraDir.y[x]-=8;
+                        move_sprite(x+4,barraDir.x[x],barraDir.y[x]);
+                    }
                 }
             }
-        }else if(joypad() & J_LEFT){
-            if(canPlayerMove(barraDir.y[0]+8, barraDir.y[2]+8)){
-                for(UINT8 x=0; x<3; x++){
-                    barraDir.y[x]+=8;
-			        move_sprite(x+4,barraDir.x[x],barraDir.y[x]);
+            if(input[0]==0){
+                if(canPlayerMove(barraDir.y[0]+8, barraDir.y[2]+8)){
+                    for(UINT8 x=0; x<3; x++){
+                        barraDir.y[x]+=8;
+                        move_sprite(x+4,barraDir.x[x],barraDir.y[x]);
+                    }
                 }
             }
-        }
-        
-        moveBola(&ballOne);
+            moveBola(&ballOne);
 
-        moveBola(&ballTwo);
+            moveBola(&ballTwo);
 
-        for(UINT16 i=0; i<6; i++){
-		    wait_vbl_done();
-        }
+            /*for(UINT16 i=0; i<6; i++){
+                wait_vbl_done();
+            }*/
+            
+            int data[12];
+            data[0] = ballOne.x;
+            data[1] = ballOne.y;
+            data[2] = ballTwo.x;
+            data[3] = ballTwo.y;
+            data[4] = barraEsq.y[0];
+            data[5] = barraEsq.y[1];
+            data[6] = barraEsq.y[2];
+            data[7] = barraDir.y[0];
+            data[8] = barraDir.y[1];
+            data[9] = barraDir.y[2];
+            data[10] = SCORE_PLAYER_ONE;
+            data[11] = SCORE_PLAYER_TWO;
+            send_data(data, 12);
+            if(SCORE_PLAYER_ONE == WINNER_SCORE || SCORE_PLAYER_TWO == WINNER_SCORE){
+                if(SCORE_PLAYER_ONE == WINNER_SCORE)
+                    printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR UM\n    voce venceu!");
+                else
+                    while(1){}
+                //Esconder os sprites de alguma forma.
+                HIDE_SPRITES;
+                while(1){
+                    WORD pad = joypad();
+                    if(pad) 
+                    break;
+                }
+                if((SCORE_PLAYER_ONE == WINNER_SCORE) || (SCORE_PLAYER_TWO == WINNER_SCORE)){
+                    break;
+                }
+            }
+		}else{
+            WORD pad = joypad();
+            int input[1];
+            input[0] = 3;
+            if (pad & J_UP)
+            { 
+                input[0]=1;
+            }
+            if (pad & J_DOWN)
+            { 
+                input[0]=0;
+            }
+            send_data(input,1);
+            int datarecieve[12];
+            recieve_data(datarecieve, 12);
+            ballOne.x = datarecieve[0];
+            ballOne.y = datarecieve[1];
+            ballTwo.x = datarecieve[2];
+            ballTwo.y = datarecieve[3];
+            barraEsq.y[0] = datarecieve[4];
+            barraEsq.y[1] = datarecieve[5];
+            barraEsq.y[2] = datarecieve[6];
+            barraDir.y[0] = datarecieve[7];
+            barraDir.y[1] = datarecieve[8];
+            barraDir.y[2] = datarecieve[9];
+            SCORE_PLAYER_ONE = datarecieve[10];
+            SCORE_PLAYER_TWO = datarecieve[11];
 
-        if((SCORE_PLAYER_ONE == WINNER_SCORE) || (SCORE_PLAYER_TWO == WINNER_SCORE)){
-            break;
+            if(SCORE_PLAYER_ONE == WINNER_SCORE || SCORE_PLAYER_TWO == WINNER_SCORE){
+                if(SCORE_PLAYER_TWO == WINNER_SCORE)
+                    printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR DOIS\n    voce venceu!");
+                else
+                    while(1){}
+                //Esconder os sprites de alguma forma.
+                HIDE_SPRITES;
+                while(1){
+                    WORD pad = joypad();
+                    if(pad) 
+                    break;
+                }
+                if((SCORE_PLAYER_ONE == WINNER_SCORE) || (SCORE_PLAYER_TWO == WINNER_SCORE)){
+                    break;
+                }
+            }
+
+            move_sprite(ballOne.spritid, ballOne.x, ballOne.y);
+            move_sprite(barraEsq.spritid[0], barraEsq.x[0], barraEsq.y[0]);
+            move_sprite(barraEsq.spritid[1], barraEsq.x[1], barraEsq.y[1]);
+            move_sprite(barraEsq.spritid[2], barraEsq.x[2], barraEsq.y[2]);
+            move_sprite(barraDir.spritid[0], barraDir.x[0], barraDir.y[0]);
+            move_sprite(barraDir.spritid[1], barraDir.x[1], barraDir.y[1]);
+            move_sprite(barraDir.spritid[2], barraDir.x[2], barraDir.y[2]);
+            move_sprite(ballTwo.spritid, ballTwo.x, ballTwo.y);
+
+            moveBola(&ballOne);
+
+            moveBola(&ballTwo);
+
+            /*for(UINT16 j=0; j<6; j++){
+                wait_vbl_done();
+            }*/
         }
 	}
-
-    //Esconder os sprites de alguma forma.
-    HIDE_SPRITES;
-    if(SCORE_PLAYER_ONE == WINNER_SCORE){
-        printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR UM\n    voce venceu!");
-    }else{
-        printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR DOIS\n    voce venceu!");
-    }
 }
