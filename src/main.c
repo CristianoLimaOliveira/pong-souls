@@ -311,7 +311,7 @@ void main(){
                 if(SCORE_PLAYER_ONE == WINNER_SCORE)
                     printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR UM\n    voce venceu!");
                 else
-                    while(1){}
+                    printf("\n\n\n\n\n\n\n\n    JOGADOR DOIS\n    venceu!");
                 //Esconder os sprites de alguma forma.
                 HIDE_SPRITES;
                 while(1){
@@ -355,7 +355,7 @@ void main(){
                 if(SCORE_PLAYER_TWO == WINNER_SCORE)
                     printf("\n\n\n\n\n\n\n      Parabens\n    JOGADOR DOIS\n    voce venceu!");
                 else
-                    while(1){}
+                    printf("\n\n\n\n\n\n\n\n    JOGADOR UM\n    venceu!");
                 //Esconder os sprites de alguma forma.
                 HIDE_SPRITES;
                 while(1){
