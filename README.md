@@ -5,7 +5,7 @@ Projeto para a 3 avaliação da disciplina **Interface de Hardware e Software**,
 # Funcionamento do Jogo
 
 O jogo é uma uma fusão do jogo breakout com o jogo pong com multiplayer local suportando a conexão de dois players. 
-Os dois players, representador por duas barras verticais, tem que destruir os obstáculos para conseguir marcar pontos e consequentemente vencer o jogo. O ponto é marcado quando alguma das duas bolas atingir os extremos horizontais da tela, sendo o extremo esquerdo contando como ponto para barra direita e o extremo direito contando como ponto para barra esquerda.
+Os dois players, representado por duas barras verticais, tem que destruir os obstáculos para conseguir marcar pontos e consequentemente vencer o jogo. O ponto é marcado quando alguma das duas bolas atingir os extremos horizontais da tela, sendo o extremo esquerdo contando como ponto para barra direita e o extremo direito contando como ponto para barra esquerda.
 O jogo termina quando algum dos players marcarem 8 pontos.
 
 # Ferramentas utilizadas
@@ -19,7 +19,7 @@ O jogo termina quando algum dos players marcarem 8 pontos.
 
 # Controles de Jogo
 
-- A tecla **A** e **S** vão representar a tecla START do jogo. Sendo A para o player um e S para o player 2.
+- A tecla **A** e **S** vão representar a tecla START do jogo. Sendo A para o player 1 e S para o player 2.
 - **Seta pra cima** e **Seta para baixo** comanda as barras do jogo.
 
 # Como Jogar
