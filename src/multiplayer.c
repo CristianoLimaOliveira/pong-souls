@@ -49,13 +49,9 @@ int send_data(int *data,int num_dados){
         _io_out = data[i];
         delay(1);
         send_byte();
-        //printf("sending\n");
         while(_io_status == IO_SENDING){;}
-        //printf("sent\n");
         receive_byte();
-        //printf("recieving\n");
         while(_io_status == IO_RECEIVING){;}
-        //printf("recieved\n");
         if(_io_in != OK)
             return NOT_OK;
     }
@@ -65,16 +61,12 @@ int send_data(int *data,int num_dados){
 int recieve_data(int*recieved, int num_dados){
     for(int i=0;i < num_dados; i++){
         receive_byte();
-        //printf("recieving\n");
         while(_io_status == IO_RECEIVING){;}
-        //printf("recieved\n");
         recieved[i] = _io_in;
         _io_out = OK;
         delay(1);
         send_byte();
-        //printf("sending\n");
         while(_io_status == IO_SENDING){;}
-        //printf("sent\n");
     }
     return OK;
 }

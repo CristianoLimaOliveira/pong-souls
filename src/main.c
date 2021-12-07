@@ -20,6 +20,7 @@ UINT16 SCORE_PLAYER_TWO = 0;
 
 // Bola um começa com o x e o y aumentando.
 // Bola dois começa com o x diminuindo e o y aumentando.
+// VELOCIDADE DA BOLA É 4
 INT16 BALL_ONE_XVEL = 4;
 INT16 BALL_ONE_YVEL = 4;
 INT16 BALL_TWO_XVEL = -4;
@@ -380,9 +381,6 @@ void main(){
 
             moveBola(&ballTwo);
 
-            /*for(UINT16 j=0; j<6; j++){
-                wait_vbl_done();
-            }*/
         }
 	}
 }
