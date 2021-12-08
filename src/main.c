@@ -60,10 +60,10 @@ UBYTE canPlayerMove(UINT16 topy, UINT16 bottomy){
 
 void soundBall(){
     NR51_REG = 0x01;
-    NR10_REG = 0X00;
-    NR11_REG = 0X81;
-    NR12_REG = 0X43;
-    NR13_REG = 0XDB;
+    NR10_REG = 0X55;
+    NR11_REG = 0XC5;
+    NR12_REG = 0X34;
+    NR13_REG = 0X74;
     NR14_REG = 0X86;
 }
 
