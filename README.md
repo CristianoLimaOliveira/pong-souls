@@ -8,6 +8,10 @@ O jogo é uma uma fusão do jogo breakout com o jogo pong com multiplayer local 
 Os dois players, representado por duas barras verticais, tem que destruir os obstáculos para conseguir marcar pontos e consequentemente vencer o jogo. O ponto é marcado quando alguma das duas bolas atingir os extremos horizontais da tela, sendo o extremo esquerdo contando como ponto para barra direita e o extremo direito contando como ponto para barra esquerda.
 O jogo termina quando algum dos players marcarem 8 pontos.
 
+# Vídeo de apresentação
+Link: https://www.youtube.com/watch?v=ajt4nx_Inkg
+[![Watch the video](https://imgur.com/mcH2Q9l.png)](https://www.youtube.com/watch?v=ajt4nx_Inkg)
+
 # Ferramentas utilizadas
 
 - O jogo foi programado utilizando a linguagem C.
