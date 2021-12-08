@@ -63,9 +63,21 @@ UBYTE checkBallCollisions(INT16 x, INT16 y){
     //Colisão com a barra esquerda
     if(x <= barraEsq.x[0]){
         if(y >= barraEsq.y[0] && y <= barraEsq.y[0]+barraEsq.height){
+            NR51_REG = 0x01;
+            NR10_REG = 0X00;
+            NR11_REG = 0X81;
+            NR12_REG = 0X43;
+            NR13_REG = 0XDB;
+            NR14_REG = 0X86;
             return TRUE;
         }
         if(y+8 >= barraEsq.y[0] && y+8 <= barraEsq.y[0]+barraEsq.height){
+            NR51_REG = 0x01;
+            NR10_REG = 0X00;
+            NR11_REG = 0X81;
+            NR12_REG = 0X43;
+            NR13_REG = 0XDB;
+            NR14_REG = 0X86;
             return TRUE;
         }
     }
@@ -73,9 +85,21 @@ UBYTE checkBallCollisions(INT16 x, INT16 y){
     //Colisão com a barra direita
     if(x >= barraDir.x[0]){
         if(y >= barraDir.y[0] && y <= barraDir.y[0]+barraDir.height){
+            NR51_REG = 0x01;
+            NR10_REG = 0X00;
+            NR11_REG = 0X81;
+            NR12_REG = 0X43;
+            NR13_REG = 0XDB;
+            NR14_REG = 0X86;
             return TRUE;
         }
         if(y+8 >= barraDir.y[0] && y+8 <= barraDir.y[0]+barraDir.height){
+            NR51_REG = 0x01;
+            NR10_REG = 0X00;
+            NR11_REG = 0X81;
+            NR12_REG = 0X43;
+            NR13_REG = 0XDB;
+            NR14_REG = 0X86;
             return TRUE;
         }
     }
@@ -95,11 +119,23 @@ UBYTE checkBallCollisions(INT16 x, INT16 y){
     }
 
     if(BackgroundPong[tileindexTL] == 0x07){
+        NR51_REG = 0x01;
+        NR10_REG = 0X00;
+        NR11_REG = 0X81;
+        NR12_REG = 0X43;
+        NR13_REG = 0XDB;
+        NR14_REG = 0X86;
         unsigned char blank_tile[1] = {0x00};
         set_bkg_tiles(indexTLx, indexTLy, 1, 1, blank_tile);
         vetorBarrasRemovidas[tileindexTL] = TRUE;
     }else{
         if(indexTLx == 0){ // Marca ponto para barra da esquerda
+            NR51_REG = 0x01;
+            NR10_REG = 0X00;
+            NR11_REG = 0X81;
+            NR12_REG = 0X43;
+            NR13_REG = 0XDB;
+            NR14_REG = 0X86;
             SCORE_PLAYER_TWO += 1;
             if(SCORE_PLAYER_TWO<WINNER_SCORE){
                 set_sprite_tile(9, SCORE_PLAYER_TWO + 8);
@@ -108,6 +144,12 @@ UBYTE checkBallCollisions(INT16 x, INT16 y){
         }
 
         if(indexTLx == 19){ //Marca ponto para barra da direita
+            NR51_REG = 0x01;
+            NR10_REG = 0X00;
+            NR11_REG = 0X81;
+            NR12_REG = 0X43;
+            NR13_REG = 0XDB;
+            NR14_REG = 0X86;
             SCORE_PLAYER_ONE += 1;
             if(SCORE_PLAYER_ONE<WINNER_SCORE){
                 set_sprite_tile(8, SCORE_PLAYER_ONE + 8);
